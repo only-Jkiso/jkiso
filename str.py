@@ -67,8 +67,11 @@ def main():
                 total = total - bonus_value*time_hy
         
         monthly = total/time
+        bonus_month = monthly + bonus_value
         if button:
             st.write('毎月のお支払い金額は','{:.2f}'.format(monthly),'万円です')
-    
+            if bonus == '有り':
+                st.write('ボーナス月のお支払いは','{:.2f}'.format(bonuns_month),'万円です')
+
 if __name__ == '__main__':
     main()
