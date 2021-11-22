@@ -71,7 +71,7 @@ def main():
         if button:
             st.write('毎月のお支払い金額は','{:.2f}'.format(monthly),'万円です')
             if bonus == '有り':
-                st.write('ボーナス月のお支払いは','{:.2f}'.format(bonuns_month),'万円です')
+                st.write('ボーナス月のお支払いは','{:.2f}'.format(bonus_month),'万円です')
 
 if __name__ == '__main__':
     main()
