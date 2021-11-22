@@ -63,7 +63,7 @@ def main():
         if bonus == '有り':
             if bonus_time == '1':
                 total = total - bonus_value*time_y
-            elif bonus_time == '2'
+            elif bonus_time == '2':
                 total = total - bonus_value*time_hy
         
         monthly = total/time
