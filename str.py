@@ -25,6 +25,7 @@ def main():
     #支払い回数入力
     time = float(st.slider('何回払いですか',3,600,24,1))
     time_y = (time - time%12)/12
+    time_hy = (time - time%6)/6
     
     #頭金の有無
     dep = st.selectbox('頭金有り/無しを選択して下さい',('有り','無し'))
@@ -52,27 +53,22 @@ def main():
     #計算          total = borrow + borrow*bank*time/12
     if borrow > 0:
         total = borrow        
+        #頭金有り
         if dep == '有り':
-            total = total - deposit
-            total = total + total*bank*time/12
-        else:
-            total = total + total*bank*time/12
+            total = total - deposit   
+            
+        total = total + total*bank*time/12
+        
+        #ボーナス併用あり
         if bonus == '有り':
             if bonus_time == '1':
-                total = total + total*bank*time/12
                 total = total - bonus_value*time_y
-            else:
-                total = total + total*bank*time/12
-                total = total - bonus_value*time_y*2
-
+            elif bonus_time == '2'
+                total = total - bonus_value*time_hy
+        
         monthly = total/time
         if button:
             st.write('毎月のお支払い金額は','{:.2f}'.format(monthly),'万円です')
-    
-    
-    
-
-    
     
 if __name__ == '__main__':
     main()
