@@ -8,9 +8,9 @@ def main():
     st.text('ローンの借入額と返済年月から月々の返済額を計算します。\nボーナス併用有無、頭金有無からお選びいただけます。')
     
     #金額入力
-    borrow = float(st.number_input('ご希望の借入金額を入力して下さい（万円）'))
+    borrow = float(st.number_input('ローンをご利用して購入したい商品/サービスの金額を入力して下さい（万円）'))
     if not 1 <= borrow <= 3000:
-        st.error('1~3000万円の範囲でローンの検討をして下さい')
+        st.error('1~3000万円の範囲で検討して下さい')
         
     #利息入力
     bank = float(st.slider('年利率は何%ですか(%)',0.10,25.0,8.0,0.1))
@@ -25,6 +25,7 @@ def main():
     #支払い回数入力
     time = float(st.slider('何回払いですか',3,600,24,1))
     time_y = (time - time%12)/12
+    time_hy = (time - time%6)/6
     
     #頭金の有無
     dep = st.selectbox('頭金有り/無しを選択して下さい',('有り','無し'))
@@ -52,27 +53,22 @@ def main():
     #計算          total = borrow + borrow*bank*time/12
     if borrow > 0:
         total = borrow        
+        #頭金有り
         if dep == '有り':
-            total = total - deposit
-            total = total + total*bank*time/12
-        else:
-            total = total + total*bank*time/12
+            total = total - deposit   
+            
+        total = total + total*bank*time/12
+        
+        #ボーナス併用あり
         if bonus == '有り':
             if bonus_time == '1':
-                total = total + total*bank*time/12
                 total = total - bonus_value*time_y
-            else:
-                total = total + total*bank*time/12
-                total = total - bonus_value*time_y*2
-
+            elif bonus_time == '2':
+                total = total - bonus_value*time_hy
+        
         monthly = total/time
         if button:
             st.write('毎月のお支払い金額は','{:.2f}'.format(monthly),'万円です')
-    
-    
-    
-
-    
     
 if __name__ == '__main__':
     main()
